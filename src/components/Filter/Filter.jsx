@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import { FormElement, FieldElement, FieldTitle } from './Filter.styled';
 
 const Filter = ({ onChangeFilterInput }) => {
