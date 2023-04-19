@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
+import {
+  FormElement,
+  FieldElement,
+  FieldTitle,
+  ErrorMessageElement,
+  AddBtn,
+} from './ContactForm.styled';
 
 const schema = yup.object().shape({
-  name: yup.string().required(),
-  number: yup.string().min(7, 'short').max(7, 'long').required(),
+  name: yup.string().min(2, 'Too Short!').max(70, 'Too Long!').required(),
+  number: yup
+    .string()
+    .matches(/^[0-9]{7}$/, 'Must be exactly 7 digits')
+    .required(),
 });
 
 const initialValues = { name: '', number: '' };
@@ -35,32 +45,22 @@ class ContactForm extends Component {
         validationSchema={schema}
         onSubmit={this.onSubmitForm}
       >
-        <Form autoComplete="off" onChange={this.onChangeInput}>
-          <label htmlFor="name">
-            Name
-            <Field
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            />
-            <ErrorMessage name="name" />
-          </label>
-          <label htmlFor="number">
-            Number
-            <Field
-              type="tel"
-              name="number"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            />
-            <ErrorMessage name="number" />
-          </label>
-          <button type="submit">Add contact</button>
-        </Form>
+        <FormElement autoComplete="off" onChange={this.onChangeInput}>
+          <FieldTitle>Name</FieldTitle>
+          <FieldElement type="text" name="name" />
+          <ErrorMessageElement name="name" component="div" />
+          <FieldTitle>Number</FieldTitle>
+          <FieldElement type="tel" name="number" />
+          <ErrorMessageElement name="number" component="div" />
+          <AddBtn type="submit">Add contact</AddBtn>
+        </FormElement>
       </Formik>
     );
   }
 }
 
 export default ContactForm;
+
+ContactForm.propTypes = {
+  onAddContact: PropTypes.func.isRequired,
+};
