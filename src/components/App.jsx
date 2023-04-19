@@ -48,7 +48,6 @@ class App extends Component {
   };
 
   deleteContact = id => {
-    console.log(id);
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
@@ -56,8 +55,6 @@ class App extends Component {
 
   onChangeFilterInput = evt => {
     const { value } = evt.currentTarget;
-
-    console.log(value);
 
     this.setState({
       filter: value,
