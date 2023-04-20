@@ -26,7 +26,7 @@ export const ErrorMessageElement = styled(ErrorMessage)`
   color: #ff0000;
 `;
 
-export const FieldTitle = styled.p`
+export const FieldTitle = styled.label`
   margin-top: 0;
   margin-bottom: 5px;
 `;

@@ -46,11 +46,11 @@ class ContactForm extends Component {
         onSubmit={this.onSubmitForm}
       >
         <FormElement autoComplete="off" onChange={this.onChangeInput}>
-          <FieldTitle>Name</FieldTitle>
-          <FieldElement type="text" name="name" />
+          <FieldTitle htmlFor="name-input">Name</FieldTitle>
+          <FieldElement id="name-input" type="text" name="name" />
           <ErrorMessageElement name="name" component="div" />
-          <FieldTitle>Number</FieldTitle>
-          <FieldElement type="tel" name="number" />
+          <FieldTitle htmlFor="number-input">Number</FieldTitle>
+          <FieldElement id="number-input" type="tel" name="number" />
           <ErrorMessageElement name="number" component="div" />
           <AddBtn type="submit">Add contact</AddBtn>
         </FormElement>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
+import { formatterNumber } from '../utils/formatterNumber';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
@@ -15,13 +16,6 @@ class App extends Component {
     filter: '',
   };
 
-  formattedNumber = number => {
-    const part1 = number.slice(0, 3);
-    const part2 = number.slice(3, 5);
-    const part3 = number.slice(5, 7);
-    return `${part1}-${part2}-${part3}`;
-  };
-
   onAddContact = data => {
     const { name, number } = data;
 
@@ -33,18 +27,17 @@ class App extends Component {
     if (isContainName) {
       alert(`${name} is already in contacts.`);
       return;
-    } else {
-      this.setState(prevState => {
-        const newContactList = [...prevState.contacts];
-
-        newContactList.push({
-          id: nanoid(),
-          name: name,
-          number: this.formattedNumber(number),
-        });
-        return { contacts: newContactList };
-      });
     }
+    this.setState(prevState => {
+      const newContactList = [...prevState.contacts];
+
+      newContactList.push({
+        id: nanoid(),
+        name: name,
+        number: formatterNumber(number),
+      });
+      return { contacts: newContactList };
+    });
   };
 
   deleteContact = id => {
